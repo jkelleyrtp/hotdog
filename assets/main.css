@@ -14,7 +14,6 @@ html, body {
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
-
 }
 
 #dogview {
@@ -115,7 +114,8 @@ html, body {
 }
 
 #favorites-container {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -145,16 +145,4 @@ html, body {
     bottom: 10px;
     left: 10px;
     z-index: 10;
-}
-
-#profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#profile img {
-    max-width: 50vw;
-    max-height: 80vh;
 }
