@@ -114,18 +114,19 @@ html, body {
 }
 
 #favorites-container {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    padding: 10px;
 }
 
 .favorite-dog {
-    max-height: 125px;
-    max-width: 45%;
+    max-height: 180px;
+    max-width: 60%;
     position: relative;
 }
 

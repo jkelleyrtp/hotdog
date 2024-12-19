@@ -1,24 +1,26 @@
-mod favorites;
-mod nav;
-mod view;
+mod backend;
+mod components;
 
+use components::{DogView, Favorites, NavBar};
 use dioxus::prelude::*;
 
 #[derive(Routable, PartialEq, Clone)]
 enum Route {
-    #[layout(nav::HeaderFooter)]
-    #[route("/", view::DogView)]
+    #[layout(NavBar)]
+    #[route("/")]
     DogView,
 
-    #[route("/favorites", favorites::Favorites)]
+    #[route("/favorites")]
     Favorites,
 }
 
 fn main() {
-    dioxus::launch(|| {
-        rsx! {
-            document::Stylesheet { href: asset!("/assets/main.css") }
-            Router::<Route> {}
-        }
-    });
+    dioxus::launch(app);
+}
+
+fn app() -> Element {
+    rsx! {
+        document::Stylesheet { href: asset!("/assets/main.css") }
+        Router::<Route> {}
+    }
 }

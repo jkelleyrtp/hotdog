@@ -5,20 +5,21 @@ authors = ["Dioxus Labs"]
 edition = "2021"
 
 [dependencies]
-dioxus = { version = "0.6.0", features = ["fullstack", "router"] }
+dioxus = { version = "0.6.1", features = ["fullstack", "router"] }
 reqwest = { version = "0.12.9", features = ["json"] }
 serde = { version = "1.0.216", features = ["derive"] }
 serde_json = "1.0.133"
+rusqlite = { version = "0.32.1", optional = true }
 
 [target.'cfg(target_os = "android")'.dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
 
 [features]
-default = ["web"]
+default = ["web", "server"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
-server = ["dioxus/server"]
+server = ["dioxus/server", "dep:rusqlite"]
 
 [profile]
 [profile.wasm-dev]
@@ -30,3 +31,4 @@ inherits = "dev"
 
 [profile.android-dev]
 inherits = "dev"
+

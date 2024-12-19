@@ -17,16 +17,6 @@ pub fn DogView() -> Element {
             .message
     });
 
-    let save = move |_| async move {
-        let current = img_src.value().cloned().unwrap();
-        img_src.restart();
-        save_dog(current).await.unwrap();
-    };
-
-    let skip = move |_| {
-        img_src.restart();
-    };
-
     rsx! {
         div { id: "dogview",
             img {
@@ -35,23 +25,22 @@ pub fn DogView() -> Element {
             }
         }
         div { id: "buttons",
-            button { onclick: skip, id: "skip", "skip" }
-            button { onclick: save, id: "save", "save!" }
+            button {
+                id: "skip",
+                onclick: move |_| {
+                    img_src.restart();
+                },
+                "skip"
+            }
+            button {
+                id: "save",
+                onclick: move |_| async move {
+                    let current = img_src.value().cloned().unwrap();
+                    img_src.restart();
+                    crate::backend::save_dog(current).await.unwrap();
+                },
+                "save!"
+            }
         }
     }
-}
-
-#[server]
-async fn save_dog(image: String) -> Result<(), ServerFnError> {
-    use std::io::Write;
-
-    _ = std::fs::OpenOptions::new()
-        .write(true)
-        .append(true)
-        .create(true)
-        .open("dogs.txt")
-        .unwrap()
-        .write_fmt(format_args!("{image}\n"));
-
-    Ok(())
 }
