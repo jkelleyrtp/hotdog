@@ -19,10 +19,7 @@ pub fn DogView() -> Element {
 
     rsx! {
         div { id: "dogview",
-            img {
-                id: "dogimg",
-                src: "{img_src.value().cloned().unwrap_or_default()}",
-            }
+            img { id: "dogimg", src: "{img_src().unwrap_or_default()}" }
         }
         div { id: "buttons",
             button {
@@ -35,9 +32,8 @@ pub fn DogView() -> Element {
             button {
                 id: "save",
                 onclick: move |_| async move {
-                    let current = img_src.value().cloned().unwrap();
                     img_src.restart();
-                    crate::backend::save_dog(current).await.unwrap();
+                    crate::backend::save_dog(img_src().unwrap()).await.unwrap();
                 },
                 "save!"
             }
